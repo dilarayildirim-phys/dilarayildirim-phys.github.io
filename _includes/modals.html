@@ -1,4 +1,3 @@
-<!-- Portfolio Modals -->
 {% for post in site.posts %}
 <div class="portfolio-modal modal fade" id="portfolioModal-{{ post.modal-id }}" tabindex="-1" role="dialog"
   aria-hidden="true">
@@ -16,8 +15,36 @@
             <h2>{{ post.title }}</h2>
             <hr class="star-primary">
             <img src="img/portfolio/{{ post.img }}" class="img-responsive img-centered" alt="{{ post.alt }}">
+            
             {% if post.description %}
             <p>{{ post.description }}</p>
+            {% endif %}
+
+            {% if post.modal-id == "pendulum" %} 
+            
+            <div style="margin: 20px 0; text-align: center;">
+                <button class="btn btn-success btn-lg" id="startPendulumBtn" type="button" style="padding: 15px 30px; font-size: 18px;">
+                    <i class="fa fa-play"></i> Simülasyonu Başlat
+                </button>
+            </div>
+
+            <div id="canvasContainer" style="display: none; margin-top: 30px; text-align: center; background: #f8f9fa; padding: 20px; border-radius: 15px; border: 1px solid #ddd;">
+                <iframe src="sarkac/index.html" width="800" height="600" style="border:none; max-width: 100%;" scrolling="no"></iframe>
+            </div>
+
+            <script>
+            // Butona basıldığında simülasyonu pürüzsüzce açan JS motoru
+            document.getElementById('startPendulumBtn').addEventListener('click', function() {
+                var container = document.getElementById('canvasContainer');
+                container.style.display = 'block'; // Simülasyon alanını görünür yap
+                this.style.display = 'none';       // "Simülasyonu Başlat" butonunu gizle
+                
+                // Sayfayı simülasyonun tam ortalanacağı şekilde aşağı kaydır
+                setTimeout(function() {
+                    container.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            });
+            </script>
             {% endif %}
             <ul class="list-inline item-details">
               {% if post.client %}
